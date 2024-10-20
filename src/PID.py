@@ -1,45 +1,55 @@
-import time
-#import matplotlib.pyplot as plt
-#from matplotlib.widgets import Button, TextBox, RangeSlider
-#import numpy as np
-
 class PID:
-    def __init__(self, kP, kI, kD):
-        self.previousPos = 0
-        self.previousError = 0
+    def __init__(self, kP, kI, kD, targetPos, currentPos, dt, friction):
         self.kP = kP
         self.kI = kI
         self.kD = kD
+        
+        self.targetPos = targetPos
+        self.currentPos = currentPos
+        
+        self.dt = dt
+        
+        self.friction = friction
+        
+        self.prevError = 0
         self.integral = 0
-       
-        self.previousTime = time.time()
-    
-    def compute(self, targetPos, currentValue):
-        error = targetPos - currentValue
-            
-        currentTime = time.time()
-        deltaTime = currentTime - self.previousTime
-        
-        if deltaTime == 0:
-            deltaTime = 1e-16 # prevent division by 0
-            
-        P = self.kP * error
-        
-        self.integral += error * deltaTime
-        I = self.kI * self.integral
-        
-        derivative = (error - self.previousError) / deltaTime
-        D = self.kD * derivative
-        
-        output = P + I + D
-        
-        # put max outputs here
-        
-        self.previousError = error
-        self.previousTime = currentTime
-        
-        return output
+        self.prevDerivative = 0
 
+    def compute(self):
+        error = self.targetPos - self.currentPos
+        
+        P = error * self.kP
+        
+        self.integral += error * self.dt
+        I = self.integral * self.kI
+        
+        alpha = 0.1  # Smoothing factor (between 0 and 1)
+        derivative = alpha * ((error - self.prevError) / self.dt) + (1 - alpha) * self.prevDerivative # To clamp down d value
+        self.prevDerivative = derivative
+        D = derivative * self.kD
+
+        self.prevError = error
+        
+        return (P + I + D - self.friction)
+    
+    def simulatePID(self, steps = 100):
+        velocity = 0
+
+        robotPosition = [0]
+
+        for step in range(steps):
+            velocity = self.compute()
+            self.currentPos += velocity * self.dt
+
+            robotPosition.append(self.currentPos)
+
+        return robotPosition
+
+# Virtual Environemnt (Local Running) stuff
+
+# import matplotlib.pyplot as plt
+# from matplotlib.widgets import Button, TextBox, RangeSlider
+# import numpy as np
 """
 if __name__ == "__main__":
     pid = PID(

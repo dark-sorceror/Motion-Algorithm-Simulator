@@ -1,5 +1,115 @@
-.canvas-holder {
-    max-width: 1000px;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+* {
+    font-family: 'Montserrat';
+    margin: 0;
+    padding: 0;
 }
 
- 
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    height: 75px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+ul {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid grey;
+}
+
+li:not(:last-child) {
+    margin-right: 25px;
+}
+
+li {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.canvas-holder {
+    width: 1000px;
+    height: 650px;
+    margin-right: 70px;
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+}
+
+.slider-container:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.slider-container span {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.slider-function {
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    margin-right: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+}
+
+button:hover {
+    background-color: lightgrey;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}

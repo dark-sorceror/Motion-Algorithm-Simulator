@@ -1,36 +1,24 @@
-import time
-import numpy as np
 from .PID import PID
 from flask import Blueprint, jsonify, request, render_template
 
-main = Blueprint('main', __name__)
+bp = Blueprint('bp', __name__)
 
-def pid_controller(targetValue, kP, numSteps=100):
-    currentValue = 0
-    outputValues = []
-    
-    for step in range(numSteps):
-        error = targetValue - currentValue
-        
-        adjustment = kP * error
-        currentValue += adjustment 
-        outputValues.append(currentValue)
-    
-    return outputValues
-
-@main.route('/')
+@bp.route('/')
 def index():
     return render_template('index.html')
 
-@main.route('/pid', methods=['POST'])
-def pid():
+@bp.route('/simulate', methods=['POST'])
+def simulate():
     data = request.json
-    p_value = data.get('p_value', 1)
-    targetValue = 100
-    numSteps = 100
+    kP = float(data['kpValue'])
+    kI = float(data['kiValue'])
+    kD = float(data['kdValue'])
+    friction = float(data['frictionValue'])
 
-    output_values = pid_controller(targetValue, p_value, numSteps)
-    
+    robotPosList = PID(kP, kI, kD, 100, 0, 0.1, friction).simulatePID()
+
     return jsonify(
-        { 'output_values': output_values }
+        { 
+            'robot_position': robotPosList
+        }
     )
