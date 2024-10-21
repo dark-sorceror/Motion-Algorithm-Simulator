@@ -5,7 +5,7 @@ bp = Blueprint('bp', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('PID.html')
 
 @bp.route('/simulate', methods=['POST'])
 def simulate():
@@ -15,7 +15,7 @@ def simulate():
     kD = float(data['kdValue'])
     friction = float(data['frictionValue'])
 
-    robotPosList = PID(kP, kI, kD, 100, 0, 0.1, friction).simulatePID()
+    robotPosList = PID(kP, kI, kD, 100, 0, 0.1, friction).simulate()
 
     return jsonify(
         { 

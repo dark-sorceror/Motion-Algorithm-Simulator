@@ -32,7 +32,7 @@ class PID:
         
         return (P + I + D - self.friction)
     
-    def simulatePID(self, steps = 100):
+    def simulate(self, steps = 100):
         velocity = 0
 
         robotPosition = [0]
