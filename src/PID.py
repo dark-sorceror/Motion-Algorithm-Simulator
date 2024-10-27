@@ -1,3 +1,5 @@
+import math
+
 class PID:
     def __init__(self, kP, kI, kD, targetPos, currentPos, dt, friction):
         self.kP = kP
@@ -14,6 +16,8 @@ class PID:
         self.prevError = 0
         self.integral = 0
         self.prevDerivative = 0
+        
+        self.robotPosition = [0]
 
     def compute(self):
         error = self.targetPos - self.currentPos
@@ -35,16 +39,19 @@ class PID:
     def simulate(self, steps = 100):
         velocity = 0
 
-        robotPosition = [0]
-
         for step in range(steps):
             velocity = self.compute()
             self.currentPos += velocity * self.dt
 
-            robotPosition.append(self.currentPos)
+            self.robotPosition.append(self.currentPos)
 
-        return robotPosition
-
+        return self.robotPosition
+    
+    def findIntersect(self):
+        for i in self.robotPosition:
+            if math.ceil(i) == 100:
+                return self.robotPosition.index(i)
+        
 # Virtual Environemnt (Local Running) stuff
 
 # import matplotlib.pyplot as plt

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movement Simulator</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="path/to/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <!--<link rel="stylesheet" href="../static/styles.css">-->
     <!--<script src="../static/script.js"></script>-->
@@ -12,10 +13,10 @@
 <body>
     <nav>
         <ul>
-            <li>PID</li>
-            <li>Odometry</li>
-            <li>Pure Pursuit</li>
-            <li>Way Point Generation</li>
+            <li><a href="/pid">PID</a></li>
+            <li><a>Odometry</a></li>
+            <li><a>Pure Pursuit</a></li>
+            <li><a href="/waypoint-generation">Way Point Generation</a></li>
         </ul>
     </nav>
     <h1>Feedback Control Algorithm Simulator</h1>
