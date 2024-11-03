@@ -32,13 +32,10 @@ def dataExchange():
     PIAlist = pointInjectionAlgorithm([(0, 3), (1, 3), (2, 3), (3, 2), (4, 1), (5, 0)], spacing)
     
     b = float(data['bValue']) 
-    print(b)
   
     PSAlist = convertToJSFormat(pathSmoothingAlgorithm(PIAlist, 1 - b, b, 0.001))
     
     PIAlist = convertToJSFormat(PIAlist)
-    
-    print(PSAlist)
     
     return jsonify(
         { 
