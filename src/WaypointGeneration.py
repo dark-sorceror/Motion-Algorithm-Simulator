@@ -1,12 +1,20 @@
-#Point Injection Algorithm
 import numpy as np
 
-def pointInjectionAlgorithm(points:list[tuple], spacing:int = 1):
-    newPoints = []
+def convertToJSFormat(list: list):
+    newList = []
+    
+    for i in range(len(list)):
+        newList.append({'x': list[i][0], 'y': list[i][1]})
+            
+    return newList
 
-    for i in range(len(points) - 1):
-        endPoint = np.array(points[i + 1], dtype=float)
-        startPoint = np.array(points[i], dtype=float)
+#Point Injection Algorithm
+def pointInjectionAlgorithm(pathPoints: list[tuple], spacing: int = 1):
+    newPathPoints = []
+
+    for i in range(len(pathPoints) - 1):
+        endPoint = np.array(pathPoints[i + 1], dtype = float)
+        startPoint = np.array(pathPoints[i], dtype = float)
         
         vector = endPoint - startPoint
         
@@ -14,10 +22,28 @@ def pointInjectionAlgorithm(points:list[tuple], spacing:int = 1):
         unitOfVector = vector / (numPointsThatFit if numPointsThatFit > 0 else 1)
         
         for j in range(round(numPointsThatFit if numPointsThatFit > 0 else 1)):
-            newPoints.append({'x': tuple((points[i] + unitOfVector * j).tolist())[0], 'y': tuple((points[i] + unitOfVector * j).tolist())[1]})
+            newPathPoints.append(tuple((pathPoints[i] + unitOfVector * j).tolist()))
             
-    newPoints.append({'x': tuple(points[-1])[0], 'y': tuple(points[-1])[1]})
-    #print(newPoints)
-    return newPoints
+    newPathPoints.append(tuple(pathPoints[-1]))
+    
+    return newPathPoints
 
 # Path Smoothing Algorithm
+def pathSmoothingAlgorithm(pathPoints: list[tuple], a: float, b: float, tolerance: float):
+    pathPoints = np.array(pathPoints, dtype=float)
+    origPathPoints = np.copy(pathPoints)
+    
+    change = tolerance
+    
+    while (change >= tolerance):
+        change = 0.0
+        
+        for i in range(1, len(pathPoints) - 1):
+            for j in range(len(pathPoints[i])):
+                aux = origPathPoints[i][j]
+                
+                origPathPoints[i][j] += a * (pathPoints[i][j] - origPathPoints[i][j]) + b * (origPathPoints[i-1][j] + origPathPoints[i+1][j] - 2.0 * origPathPoints[i][j])
+                
+                change += abs(aux - origPathPoints[i][j])
+                
+    return [tuple(point.tolist()) for point in origPathPoints]

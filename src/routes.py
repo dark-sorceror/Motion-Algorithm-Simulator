@@ -1,5 +1,5 @@
 from .PID import PID
-from .WaypointGeneration import pointInjectionAlgorithm
+from .WaypointGeneration import convertToJSFormat, pointInjectionAlgorithm, pathSmoothingAlgorithm
 from flask import Blueprint, jsonify, request, render_template
 
 bp = Blueprint('bp', __name__)
@@ -29,12 +29,22 @@ def dataExchange():
     intersect = pidobj.findIntersect() if robotPosList else 0
     
     spacing = float(data['spacingValue']) 
-    PIAlist = pointInjectionAlgorithm([(0, 0), (1, 1), (2, 0.5)], spacing)
+    PIAlist = pointInjectionAlgorithm([(0, 3), (1, 3), (2, 3), (3, 2), (4, 1), (5, 0)], spacing)
+    
+    b = float(data['bValue']) 
+    print(b)
+  
+    PSAlist = convertToJSFormat(pathSmoothingAlgorithm(PIAlist, 1 - b, b, 0.001))
+    
+    PIAlist = convertToJSFormat(PIAlist)
+    
+    print(PSAlist)
     
     return jsonify(
         { 
             'robot_position': robotPosList,
             'intersect': intersect,
-            'PIA_list': PIAlist
+            'PIA_list': PIAlist,
+            'PSA_list': PSAlist
         }
     )

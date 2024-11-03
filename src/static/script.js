@@ -1,4 +1,4 @@
-const VERSION = "1.3.0"
+const VERSION = "1.4.0"
 
 function syncValue(self) {
     document.getElementById(self.id.replace("slider", "value")).value = self.value;
@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         kiSlider = document.getElementById('kI-slider') ?? null,
         kdSlider = document.getElementById('kD-slider') ?? null,
         frictionSlider = document.getElementById('friction-slider') ?? null,
-        spacingSlider = document.getElementById('spacing-slider') ?? null;
+        spacingSlider = document.getElementById('spacing-slider') ?? null,
+        bSlider = document.getElementById('b-slider') ?? null;
 
     const ctx = document.getElementById('chart').getContext('2d');
 
@@ -56,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
             kiValue = parseFloat(kiSlider?.value) || 0,
             kdValue = parseFloat(kdSlider?.value) || 0,
             frictionValue = parseFloat(frictionSlider?.value) || 0,
-            spacingValue = parseFloat(spacingSlider?.value) || 0;
+            spacingValue = parseFloat(spacingSlider?.value) || 1,
+            bValue = parseFloat(bSlider?.value) || 0.75;
 
         fetch('/dataEx', {
             method: 'POST',
@@ -69,7 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     kiValue: kiValue,
                     kdValue: kdValue,
                     frictionValue: frictionValue,
-                    spacingValue: spacingValue
+                    spacingValue: spacingValue,
+                    bValue: bValue
                 }
             )
         })
@@ -104,7 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.location.pathname == "/waypoint-generation") {
                 chart.data.labels = data.PIA_list.map(item => item.x);
                 chart.data.datasets[0].data = data.PIA_list.map(item => item.y);
-                chart.data.datasets[0].label = 'Robot Path';
+                chart.data.datasets[0].label = 'Injected Robot Path';
+
+                chart.data.datasets[1] = {
+                    label: 'Smoothed Robot Path',
+                    data: data.PSA_list.map(item => item.y),
+                };
+
                 chart.options["elements"] = {
                     point: {
                         radius: 6,
@@ -123,5 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     kiSlider?.addEventListener('input', updateChartAndValue);
     kdSlider?.addEventListener('input', updateChartAndValue);
     frictionSlider?.addEventListener('input', updateChartAndValue);
+
     spacingSlider?.addEventListener('input', updateChartAndValue);
+    bSlider?.addEventListener('input', updateChartAndValue);
 });

@@ -9,8 +9,15 @@
     <div class="slider-container">
         <span>Spacing: </span>
         <div class="slider-function">
-            <input type="range" id="spacing-slider" class="slider" min="0" max="10" step="0.1" value="1" oninput="syncValue(this)">
+            <input type="range" id="spacing-slider" class="slider" min="0" max="1" step="0.1" value="1" oninput="syncValue(this)">
             <input type="text" id="spacing-value" value="1" oninput="syncSlider(this)">
+        </div>
+    </div>
+    <div class="slider-container">
+        <span>b: </span>
+        <div class="slider-function">
+            <input type="range" id="b-slider" class="slider" min="0" max="1" step="0.05" value="0.75" oninput="syncValue(this)">
+            <input type="text" id="b-value" value="0.75" oninput="syncSlider(this)">
         </div>
     </div>
 </div>

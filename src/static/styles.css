@@ -18,7 +18,7 @@ nav {
     width: 100%;
     height: 75px;
     justify-content: center;
-    margin-top: 30px;
+    position: relative;
 }
 
 ul {
@@ -26,8 +26,6 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
-    border: 1px solid grey;
 }
 
 li:not(:last-child) {
@@ -39,11 +37,51 @@ li {
     cursor: pointer;
     font-weight: 600;
     font-size: 20px;
+    border-bottom: 2px solid white;
+    transition: all 0.2s ease-in-out;
+}
+
+li:hover {
+    border-bottom-color: black;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid black;
+    width: 250px;
+    height: 250px;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.option:not(:last-child) {
+    margin-right: 50px;
+}
+
+.option:hover {
+    transform: scale(1.2);
+}
+
+.option .title {
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .canvas-holder {
@@ -64,6 +102,8 @@ h1 {
     align-items: center;
     justify-content: center;
     flex: 1;
+    height: 100%;
+    width: 100%;
 }
 
 .right {
@@ -76,8 +116,8 @@ h1 {
 .slider-container {
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    align-items: center;
+    justify-content: center;
+    align-content: start;
 }
 
 .slider-container:not(:last-child) {
@@ -106,15 +146,32 @@ button {
     justify-content: center;
     padding: 10px;
     background-color: white;
+    transition: all 0.2 ease-in-out;
+}
+
+button:not(:last-child) {
+    margin-right: 10px;
 }
 
 button:hover {
     background-color: lightgrey;
 }
 
+button:active {
+    border: 2px solid black;
+}
+
 footer {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 200px;
+    height: 175px;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
