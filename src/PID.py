@@ -48,9 +48,14 @@ class PID:
         return self.robotPosition
     
     def findIntersect(self):
-        for i in self.robotPosition:
-            if math.ceil(i) == 100:
-                return self.robotPosition.index(i)
+        for i in range(len(self.robotPosition)):
+            if abs(self.robotPosition[i] - 100) <= 1:
+                stabilizedIndex = i
+
+                if all(abs(self.robotPosition[j] - 100) <= 1 for j in range(i, len(self.robotPosition))):
+                    return stabilizedIndex
+            
+        return None
         
 # Virtual Environemnt (Local Running) stuff
 

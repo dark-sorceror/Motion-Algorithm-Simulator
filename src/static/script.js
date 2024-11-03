@@ -1,4 +1,4 @@
-const VERSION = "1.4.0"
+const VERSION = "1.5.0"
 
 function syncValue(self) {
     document.getElementById(self.id.replace("slider", "value")).value = self.value;
@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
             responsive: true,
             scales: {
                 x: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 }
             },
             plugins: {
@@ -91,16 +91,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     showLine: true,
                     pointRadius: 0
                 };
-                chart.options.plugins.annotation = {
-                    annotations: {
-                        point1: {
-                            type: 'point',
-                            xValue: data.intersect,
-                            yValue: 100,
-                            backgroundColor: 'rgba(255, 99, 132)'
-                        }
+                chart.options.scales = {
+                    x: {
+                        beginAtZero: true,
+                    },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 120
                     }
-                };
+                }
+                if (data.intersect) {
+                    chart.options.plugins.annotation = {
+                        annotations: {
+                            point1: {
+                                type: 'point',
+                                xValue: data.intersect,
+                                yValue: 100,
+                                backgroundColor: 'rgba(255, 99, 132)'
+                            }
+                        }
+                    };
+                } else {
+                    chart.options.plugins.annotation = {
+                        annotations: {}
+                    };
+                }
                 chart.update();
             }
                 

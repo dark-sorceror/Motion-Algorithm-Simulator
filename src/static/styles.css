@@ -16,9 +16,14 @@ body {
 nav {
     display: flex;
     width: 100%;
-    height: 75px;
-    justify-content: center;
-    position: relative;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 80px;
 }
 
 ul {
@@ -26,6 +31,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px 0px;
 }
 
 li:not(:last-child) {
@@ -76,7 +82,7 @@ a {
 }
 
 .option:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .option .title {
@@ -90,11 +96,6 @@ a {
     margin-right: 70px;
     display: flex;
     align-items: center;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 100px;
 }
 
 .container {
@@ -163,10 +164,19 @@ button:active {
 
 footer {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: fit-content;
     flex-direction: column;
     align-items: center;
-    height: 175px;
+}
+
+.footer {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    padding: 0px 0px 20px 0px;
 }
 
 .links {

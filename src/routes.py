@@ -12,8 +12,16 @@ def index():
 def pidSimulation():
     return render_template('PID.html')
 
+@bp.route('/pure-pursuit')
+def purePursuitSimulation():
+    return render_template('Pure Pursuit.html')
+
+@bp.route('/odometry')
+def odometrySimulation():
+    return render_template('Odometry.html')
+
 @bp.route('/waypoint-generation')
-def waypointGeneration():
+def waypointGenerationSimulation():
     return render_template('WPG.html')
 
 @bp.route('/dataEx', methods=['POST'])

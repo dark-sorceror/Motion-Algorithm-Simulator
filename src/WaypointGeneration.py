@@ -42,7 +42,8 @@ def pathSmoothingAlgorithm(pathPoints: list[tuple], a: float, b: float, toleranc
             for j in range(len(pathPoints[i])):
                 aux = origPathPoints[i][j]
                 
-                origPathPoints[i][j] += a * (pathPoints[i][j] - origPathPoints[i][j]) + b * (origPathPoints[i-1][j] + origPathPoints[i+1][j] - 2.0 * origPathPoints[i][j])
+                origPathPoints[i][j] += a * (pathPoints[i][j] - origPathPoints[i][j]) + b * \
+                                        (origPathPoints[i-1][j] + origPathPoints[i+1][j] - 2.0 * origPathPoints[i][j])
                 
                 change += abs(aux - origPathPoints[i][j])
                 

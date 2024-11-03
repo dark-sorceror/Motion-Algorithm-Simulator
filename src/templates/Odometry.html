@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="temp-container" style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%;">
+    <div class="maintenance" style="display: flex; flex-direction: column; margin-bottom: 30px;">
+        <h1 style="margin: 0;">Not Available Yet</h1>
+        <span>In the mean time, check out the available ones right now</span>
+    </div>
+    <div class="options">
+        <button class="pid option" onclick="location.href='/pid'">
+            <span class="title">PID</span>
+            <span class="desc">See how the PID controller works</span>
+        </button>
+        <button class="pure-pursuit option" onclick="location.href='/pure-pursuit'">
+            <span class="title">Pure Pursuit</span>
+            <span class="desc">See how Pure Pursuit works</span>
+        </button>
+        <button class="waypoint-generation option" onclick="location.href='/waypoint-generation'">
+            <span class="title">Waypoint Generation</span>
+            <span class="desc">See how pure pursuit paths are generated through different algorithms</span>
+        </button>
+    </div>
+</div>
+
+{% endblock %}
