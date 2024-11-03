@@ -14,11 +14,11 @@ def pidSimulation():
 
 @bp.route('/pure-pursuit')
 def purePursuitSimulation():
-    return render_template('Pure Pursuit.html')
+    return render_template('temp.html')
 
 @bp.route('/odometry')
 def odometrySimulation():
-    return render_template('Odometry.html')
+    return render_template('temp.html')
 
 @bp.route('/waypoint-generation')
 def waypointGenerationSimulation():
