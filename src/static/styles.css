@@ -23,7 +23,7 @@ nav {
 
 h1 {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 70px;
 }
 
 ul {
@@ -88,11 +88,12 @@ a {
 .option .title {
     font-weight: 600;
     margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .canvas-holder {
-    width: 1000px;
-    height: 650px;
+    width: 950px;
+    height: 625px;
     margin-right: 70px;
     display: flex;
     align-items: center;
@@ -184,4 +185,14 @@ footer {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.version {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 15px;
+    color: lightgrey;
+    font-weight: 600;
+    padding: 10px;
 }

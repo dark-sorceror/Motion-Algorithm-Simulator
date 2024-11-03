@@ -1,4 +1,4 @@
-const VERSION = "1.5.0"
+const VERSION = "1.5.1"
 
 function syncValue(self) {
     document.getElementById(self.id.replace("slider", "value")).value = self.value;
