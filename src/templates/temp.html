@@ -12,10 +12,6 @@
             <span class="title">PID</span>
             <span class="desc">See how the PID controller works</span>
         </button>
-        <button class="pure-pursuit option" onclick="location.href='/pure-pursuit'">
-            <span class="title">Pure Pursuit</span>
-            <span class="desc">See how Pure Pursuit works</span>
-        </button>
         <button class="waypoint-generation option" onclick="location.href='/waypoint-generation'">
             <span class="title">Waypoint Generation</span>
             <span class="desc">See how pure pursuit paths are generated through different algorithms</span>
@@ -23,4 +19,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block VERSION %}
+    v{{ VERSION }}
 {% endblock %}

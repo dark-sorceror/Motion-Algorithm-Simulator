@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Movement Simulator{% endblock %}</title>
+        <title>{% block TITLE %}Movement Simulator{% endblock %}</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -45,7 +45,7 @@
                 <span>Made By VEX Robotics Team 3388N Nova</span>
             </div>
         </footer>
-        <span class="version">v1.5.1</span>
+        <span class="version">{% block VERSION %}{% endblock %}</span>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 

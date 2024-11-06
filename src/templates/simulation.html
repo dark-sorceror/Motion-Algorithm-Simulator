@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block TITLE %}
+    {{ TITLE }} Simulator
+{% endblock %}
+
+{% block content %}
+
+<div class="canvas-holder">
+    <canvas id="chart"></canvas>
+</div>
+<div class="right">
+    {% for slider in sliders %}
+    
+    <div class="slider-container">
+        <span>{{ slider.label }}</span>
+        <div class="slider-function">
+            <input 
+                type="range" 
+                class="slider" 
+                id="{{ slider.id }}-slider" 
+                min="{{ slider.min }}" 
+                max="{{ slider.max }}" 
+                step="{{ slider.step }}" 
+                value="{{ slider.value }}" 
+                oninput="sync(this)"
+            >
+            <input 
+                type="text" 
+                id="{{ slider.id }}-value" 
+                value="{{ slider.value }}" 
+                oninput="sync(this)"
+            >
+        </div>
+    </div>
+    
+    {% endfor %}
+    <div class="hdtw-container">
+        <button type="button" class="button hdtw-btn" id="hdtw-btn">How does this work? BETA</button>
+        <div class="content">
+            <span>oh ok</span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block VERSION %}
+    v{{ VERSION }}
+{% endblock %}

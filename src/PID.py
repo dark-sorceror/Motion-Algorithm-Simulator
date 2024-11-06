@@ -1,5 +1,3 @@
-import math
-
 class PID:
     def __init__(self, kP, kI, kD, targetPos, currentPos, dt, friction):
         self.kP = kP
