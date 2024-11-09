@@ -1,0 +1,24 @@
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: start;
+}
+
+.slider-container:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.slider-container span {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.slider-function {
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    margin-right: 20px;
+}

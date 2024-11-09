@@ -1,0 +1,22 @@
+{
+    "dependencies": {
+        "axios": "^1.7.7",
+        "chart.js": "^4.4.6",
+        "react": "^18.3.1",
+        "react-scripts": "^5.0.1"
+    },
+    "name": "feedback-control-algorithm-simulator",
+    "description": "http://18.191.161.130/ - domain soon maybe",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator/issues"
+    },
+    "homepage": "https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator#readme"
+}
