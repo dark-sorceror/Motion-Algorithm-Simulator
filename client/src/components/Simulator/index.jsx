@@ -6,7 +6,9 @@ import * as API from '../../api'
 
 import { Canvas } from './Canvas';
 import { HDTWButton } from './Info';
-import { Slider } from './Slider';
+import { Slider } from './SliderInput';
+
+import { config } from '../../services/sliderConfig';
 
 const Simulation = () => {
     const [data, setData] = useState({
@@ -22,19 +24,6 @@ const Simulation = () => {
         },
         chartData: {},
     });
-
-    const config = {
-        pid: [
-            { id: 'kp-slider', default: 0 },
-            { id: 'ki-slider', default: 0 },
-            { id: 'kd-slider', default: 0 },
-            { id: 'friction-slider', default: 0 },
-        ],
-        'waypoint-generation': [
-            { id: 'spacing-slider', default: 1 },
-            { id: 'b-slider', default: 0.75 },
-        ],
-    };
 
     const sendSimulationData = debounce(async (newData) => {
         try {

@@ -2,13 +2,13 @@
     "short_name": "Feedback Control Algorithm Simulator",
     "name": "Feedback Control Algorithm Simulator",
     "icons": [
-      {
-        "src": "favicon.ico",
-        "sizes": "16x16 32x32 48x48",
-        "type": "image/x-icon"
-      }
+        {
+            "src": "favicon.ico",
+            "sizes": "16x16 32x32 48x48",
+            "type": "image/x-icon"
+        }
     ],
     "start_url": ".",
     "background_color": "#ffffff",
     "display": "standalone"
-  }
+}

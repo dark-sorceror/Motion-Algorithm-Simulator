@@ -5,17 +5,17 @@ export const fetchData = async (data) => {
         const response = await axiosInstance.post('/data', data);
         return response.data
     } catch (error) {
-        console.error('Error fetching data from /data', error);
+        console.error('Error in FETCH request from /data', error);
         throw error;
     }
 };
 
-export const postData = async (url, data) => {
+export const postData = async (data) => {
     try {
-        const response = await axiosInstance.post(url, data);
+        const response = await axiosInstance.post('/data', data);
         return response.data;
     } catch (error) {
-        console.error('Error in POST request:', error.response || error.message);
+        console.error('Error in POST request to /data', error.response || error.message);
         throw error;
     }
 };

@@ -3,20 +3,22 @@
         "axios": "^1.7.7",
         "chart.js": "^4.4.6",
         "react": "^18.3.1",
-        "react-scripts": "^5.0.1"
+        "react-helmet": "^6.1.0",
+        "react-scripts": "^5.0.1",
+        "sass": "^1.80.6"
     },
-    "name": "feedback-control-algorithm-simulator",
+    "name": "motion-algorithm-simulator",
     "description": "http://18.191.161.130/ - domain soon maybe",
     "version": "1.0.0",
     "main": "index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator.git"
+        "url": "git+https://github.com/dark-sorceror/Motion-Algorithm-Simulator.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator/issues"
+        "url": "https://github.com/dark-sorceror/Motion-Algorithm-Simulator/issues"
     },
-    "homepage": "https://github.com/dark-sorceror/Feedback-Control-Algorithm-Simulator#readme"
+    "homepage": "https://github.com/dark-sorceror/Motion-Algorithm-Simulator#readme"
 }

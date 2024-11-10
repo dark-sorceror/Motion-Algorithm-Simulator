@@ -6,6 +6,13 @@
     padding: 0;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
 body {
     height: 100vh;
     width: 100vw;
@@ -57,10 +64,25 @@ a {
 }
 
 .options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
     width: 60%;
+    max-width: 1000px;
+}
+
+.options a {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.options a:last-child {
+    grid-column: 2;
 }
 
 .option {
@@ -71,14 +93,10 @@ a {
     padding: 30px;
     border-radius: 20px;
     border: 2px solid black;
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 200px;
     transition: all 0.2s ease-in-out;
     text-align: center;
-}
-
-.option:not(:last-child) {
-    margin-right: 50px;
 }
 
 .option:hover {

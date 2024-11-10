@@ -1,25 +1,38 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Layout } from './pages/Layout';
-import { Home } from './pages/Home';
-import { Simulation } from './pages/Simulation';
+import HomePage from './pages/Home';
+import SimulationPage from './pages/Simulation';
+import PageNotFound from './pages/PageNotFound';
+//import { Simulation } from './pages/Simulation';
 
 import './styles.css';
+
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={
-                    <Layout />
+                    <HomePage />
                 } />
-                <Route index element = {
-                    <Home />
+
+                <Route path="/pid/" element={
+                    <SimulationPage />
                 } />
+
+                <Route path="*" element={
+                    <PageNotFound />
+                } />
+
+
+
+
+                {/*
                 <Route path="waypoint-generation" element={
-                    <Simulation />
+                    {//<Simulation />}
                 } />
+                 */}
                 {/*
                 <Route path="*" element={
                     <NoPage />

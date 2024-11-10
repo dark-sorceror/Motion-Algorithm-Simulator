@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { config } from '../../../services/Config';
+//import { config } from '../../../services/sliderConfig';
 
-const Slider = ({ id, value, onChange }) => {
+const SliderInput = ({ id, value }) => {
     const [sliderValue, setSliderValue] = useState(value || defaultValue);
 
     useEffect(() => {
