@@ -9,19 +9,18 @@ class _Link extends React.Component {
     }
 
     handleClick(e) {
-        const { children, to, activeClassName, ...other } = this.props;
+        const { children, to, ...other } = this.props;
         //analytics later
     }
 
     render() {
-        const { children, to, activeClassName, ...other } = this.props;
+        const { children, to, ...other } = this.props;
         const internal = /^\/(?!\/)/.test(to);
 
         if (internal) {
             return (
                 <Link
                     to={to}
-                    activeClassName={activeClassName}
                     {...other}
                     onClick={this.handleClick}
                 >

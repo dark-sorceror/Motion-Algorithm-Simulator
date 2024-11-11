@@ -26,7 +26,12 @@
     },
     "dependencies": {
         "axios": "^1.7.7",
+        "chart.js": "^4.4.6",
+        "chartjs-plugin-annotation": "^3.1.0",
+        "cors": "^2.8.5",
+        "express": "^4.21.1",
         "react": "^18.3.1",
+        "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.3.1",
         "react-router-dom": "^6.28.0",
         "sass": "^1.80.6"

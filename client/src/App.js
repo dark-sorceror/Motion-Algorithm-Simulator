@@ -8,7 +8,6 @@ import PageNotFound from './pages/PageNotFound';
 
 import './styles.css';
 
-
 function App() {
     return (
         <Router>

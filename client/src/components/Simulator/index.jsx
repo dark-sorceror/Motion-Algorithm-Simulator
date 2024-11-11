@@ -1,43 +1,93 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { debounce } from 'lodash';
 
 import * as API from '../../api'
 
 import { Canvas } from './Canvas';
-import { HDTWButton } from './Info';
-import { Slider } from './SliderInput';
+//import { HDTWButton } from './Info';
+import SliderValueInput from './SliderValueInput';
 
-import { config } from '../../services/sliderConfig';
+//import { config } from '../../services/sliderConfig';
 
-const Simulation = () => {
-    const [data, setData] = useState({
-        pid: {
-            kpValue: 0,
-            kiValue: 0,
-            kdValue: 0,
-            frictionValue: 0,
+const config = {
+    pid: [
+        {
+            id: 'kp-slider',
+            label: 'kP',
+            default: 1,
+            min: 0,
+            max: 5
         },
-        'waypoint-generation': {
-            spacingValue: 1,
-            bValue: 0.75,
+        {
+            id: 'ki-slider',
+            label: 'kI',
+            default: 0,
+            min: 0,
+            max: 5
         },
-        chartData: {},
+        {
+            id: 'kd-slider',
+            label: 'kD',
+            default: 0,
+            min: 0,
+            max: 5
+        },
+        {
+            id: 'friction-slider',
+            label: 'Friction',
+            default: 0,
+            min: 0,
+            max: 10
+        },
+    ],
+    'waypoint-generation': [
+        {
+            id: 'spacing-slider',
+            label: 'Spacing',
+            default: 1,
+            min: 0,
+            max: 1
+        },
+        {
+            id: 'b-slider',
+            label: 'b',
+            default: 0.75,
+            min: 0.05,
+            max: 0.95
+        },
+    ],
+};
+
+const Simulation = ({ simulationType }) => {
+    const [sliderValues, setSliderValues] = useState(() => {
+        console.log(config[simulationType]);
+        return config[simulationType].reduce((acc, i) => {
+            acc[i.id] = i.default;
+            return acc;
+        }, {});
     });
 
-    const sendSimulationData = debounce(async (newData) => {
-        try {
-            const result = await API.fetchData(newData);
-            updateChartData(result);
-        } catch (error) {
-            console.error('Error sending simulation data:', error);
-        }
-    }, 300);
-    
+    const [data, setData] = useState({ chartData: {} });
+
+    const sendSimulationData = useCallback(
+        debounce(async (newData) => {
+            try {
+                const result = await API.fetchData(newData);
+                console.log(result);
+                updateChartData(result);
+            } catch (error) {
+                console.error('Error sending simulation data:', error);
+            }
+        }, 300),
+        []
+    );
+
     const updateChartData = (data) => {
         let chartData = {};
 
         if (data.type === 'pid') {
+            console.log("a");
             chartData = {
                 labels: Array.from({ length: 101 }, (_, i) => i),
                 datasets: [
@@ -55,6 +105,7 @@ const Simulation = () => {
                     },
                 ],
             };
+            console.log("b");
         } else if (data.type === 'waypoint-generation') {
             chartData = {
                 labels: data.PIA_list.map((item) => item.x),
@@ -76,32 +127,27 @@ const Simulation = () => {
         }));
     };
 
-    const handleSliderChange = (id, value) => {
-        setData((prevData) => {
-            const updatedData = { ...prevData };
-            const [type, param] = id.split('-');
-            updatedData[type][`${param}Value`] = parseFloat(value);
-            return updatedData;
+    const updateSliderValue = (sliderID, newValue) => {
+        setSliderValues((prevValues) => {
+            const updatedValues = { ...prevValues, [sliderID]: newValue };
+            sendSimulationData({ ...updatedValues, type: simulationType });
+            console.log(updatedValues);
+            return updatedValues;
         });
-
-        sendSimulationData(data);
     };
-
-    useEffect(() => {
-        // Initialize sliders based on current URL path
-        const type = window.location.pathname.replace('/', '');
-        // Add listeners to sliders
-    }, []);
-
+    console.log("z");
     return (
         <div>
-            <HDTWButton />
-            <Slider 
-                key={id}
-                id={id}
-                value={data[type][`${id.replace('slider', '')}Value`] || defaultValue}
-                onChange={handleSliderChange}
-            />
+            { /* <HDTWButton /> */ }
+            {config[simulationType]?.map((sliderProperties) => (
+                    <SliderValueInput
+                        key={sliderProperties.id}
+                        sliderProperties={sliderProperties}
+                        value={sliderValues[sliderProperties.id]}
+                        updateValue={updateSliderValue}
+                    />
+                ))
+            }
             <Canvas data={data.chartData} />
         </div>
     );

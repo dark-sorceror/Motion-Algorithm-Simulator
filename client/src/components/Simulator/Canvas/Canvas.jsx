@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
+import { Chart } from 'chart.js';
+
 const Canvas = ({ data }) => {
     const canvasRef = useRef(null);
 
@@ -34,10 +36,10 @@ const Canvas = ({ data }) => {
     }, [data]);
 
     return (
-        <div class="canvas-holder">
-            <canvas ref={ canvasRef } id="chart"></canvas>
+        <div className="canvas-holder">
+            <canvas ref={canvasRef} id="chart"></canvas>
         </div>
     );
-}
+};
 
 export default Canvas;

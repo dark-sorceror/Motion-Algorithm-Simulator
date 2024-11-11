@@ -8,12 +8,17 @@ class SimulationPage extends React.Component {
         super (props);
     }
 
+    
+
     render () {
+        
+        const simulationType = window.location.pathname.replace("/", "");
+        console.log(simulationType);
         return (
             <Layout
                 title={"Motion Algorithm Simulator"}
             >
-                <Simulation />
+                <Simulation simulationType={ 'pid' } />
             </Layout>
         )
     }
