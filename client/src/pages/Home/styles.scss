@@ -1,0 +1,22 @@
+.home-wrapper {
+    display: flex;
+    width: 70%;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: start;
+    color: black;
+}
+
+.left h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+
+.left span {
+    font-size: 20px;
+}

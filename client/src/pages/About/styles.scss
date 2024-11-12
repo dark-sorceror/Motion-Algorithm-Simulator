@@ -1,0 +1,40 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+    max-width: 1000px;
+}
+
+.page-title {
+    margin-bottom: 50px;
+    color: black;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.links {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.links button {
+    background-color: transparent;
+    color: black;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.links button:active {
+    border: none;
+}
+
+.links button:hover {
+    background-color: rgb(197, 197, 197);
+}

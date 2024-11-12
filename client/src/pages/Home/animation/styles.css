@@ -1,0 +1,12 @@
+.right {
+    position: relative;
+}
+
+.robot {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    border-radius: 5px;
+    z-index: 600;
+}

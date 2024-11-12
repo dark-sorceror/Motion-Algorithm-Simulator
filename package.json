@@ -12,8 +12,8 @@
         "sass": "^1.80.6"
     },
     "name": "motion-algorithm-simulator",
-    "description": "http://18.191.161.130/ - domain soon maybe",
-    "version": "1.0.0",
+    "description": "Visualize the various algorithms for generating, controlling and tracking motion paths such as RRT and Pure Pursuit through simulations. Implemented in VEX Robotics",
+    "version": "2.1.2",
     "main": "index.js",
     "repository": {
         "type": "git",

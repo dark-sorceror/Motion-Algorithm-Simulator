@@ -5,7 +5,7 @@ import _Link from "../../components/Link";
 
 import './styles.scss';
 
-class PageNotFound extends React.Component {
+export class PageNotFound extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -43,5 +43,3 @@ class PageNotFound extends React.Component {
         );
     }
 }
-
-export default PageNotFound;

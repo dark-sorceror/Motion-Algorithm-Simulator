@@ -1,7 +1,8 @@
+import os
+
 from flask import request, jsonify
 
 from src import App
-import os
 
 from simulations.PID import PID
 from simulations.WaypointGeneration import generateWayPath, convertToJSFormat
@@ -9,9 +10,11 @@ from simulations.WaypointGeneration import generateWayPath, convertToJSFormat
 config_name = os.getenv('FLASK_CONFIG', 'development')
 app = App(config_name)
 
-@app.route('/api/data', methods = [ 'POST' ])
+@app.route('/api', methods = [ 'POST' ])
 def dataExchange():
     data = request.get_json()
+    
+    print(data)
     
     simType = data['type']
 
@@ -48,4 +51,4 @@ def dataExchange():
     return jsonify(toJson), 201
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port = 5000)
+    app.run(host = '0.0.0.0', port = 5001)

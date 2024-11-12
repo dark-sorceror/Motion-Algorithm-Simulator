@@ -11,6 +11,7 @@ class _Link extends React.Component {
     handleClick(e) {
         const { children, to, ...other } = this.props;
         //analytics later
+        //
     }
 
     render() {
@@ -28,7 +29,7 @@ class _Link extends React.Component {
                 </Link>
             );
         }
-        
+
         return (
             <a href={to} {...other} onClick={this.handleClick}>
                 {children}

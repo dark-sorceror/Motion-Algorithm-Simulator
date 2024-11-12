@@ -1,12 +1,12 @@
 import React from "react";
 
-import _Link from "./Link";
+import _Link from "../Link";
+
+import './styles.scss';
 
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
-
-
     }
 
     render() {
@@ -14,19 +14,15 @@ class NavBar extends React.Component {
             <nav>
                 <ul>
                     <li>
-                        <_Link to="/pid/">PID</_Link>
+                        <_Link to="/">Home</_Link>
                     </li>
                     <li>
-                        <_Link to="/pure-pursuit/">Pure Pursuit</_Link>
+                        <_Link to="/simulations/">Simulations</_Link>
                     </li>
                     <li>
-                        <_Link to="/odometry/">Odometry</_Link>
-                    </li>
-                    <li>
-                        <_Link to="/waypoint-generation/">Way Point Generation</_Link>
+                        <_Link to="/about/">About</_Link>
                     </li>
                 </ul>
-                <h1>Feedback Control Algorithm Simulator</h1>
             </nav>
         )
     }

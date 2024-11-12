@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import HomePage from './pages/Home';
-import SimulationPage from './pages/Simulation';
-import PageNotFound from './pages/PageNotFound';
-//import { Simulation } from './pages/Simulation';
+import { PageNotFound } from './pages/PageNotFound';
+import { SimulationPage } from './pages/Simulation';
+import { SimulationsPage } from './pages/Simulations'
+import { AboutPage } from './pages/About';
+import { HomePage } from './pages/Home';
 
 import './styles.css';
 
@@ -16,27 +17,25 @@ function App() {
                     <HomePage />
                 } />
 
+                <Route path="/simulations/" element={
+                    <SimulationsPage />
+                } />
+
+                <Route path="/about/" element={
+                    <AboutPage />
+                } />
+
                 <Route path="/pid/" element={
+                    <SimulationPage />
+                } />
+
+                <Route path="/waypoint-generation/" element={
                     <SimulationPage />
                 } />
 
                 <Route path="*" element={
                     <PageNotFound />
                 } />
-
-
-
-
-                {/*
-                <Route path="waypoint-generation" element={
-                    {//<Simulation />}
-                } />
-                 */}
-                {/*
-                <Route path="*" element={
-                    <NoPage />
-                } />
-                */}
             </Routes>
         </Router>
     );

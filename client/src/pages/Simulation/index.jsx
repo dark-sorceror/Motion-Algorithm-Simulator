@@ -3,25 +3,27 @@ import React from "react";
 import Layout from "../../components/Layout";
 import Simulation from "../../components/Simulator";
 
-class SimulationPage extends React.Component {
-    constructor (props) {
-        super (props);
+import './styles.scss';
+
+export class SimulationPage extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
-    
-
-    render () {
+    render() {
+        const simulationType = window.location.pathname.replace(/\//g, "");
         
-        const simulationType = window.location.pathname.replace("/", "");
-        console.log(simulationType);
         return (
             <Layout
                 title={"Motion Algorithm Simulator"}
             >
-                <Simulation simulationType={ 'pid' } />
+                <div className="simulation-wrapper">
+                    <div className="page-title-s">
+                        <h1>{simulationType}</h1>
+                    </div>
+                    <Simulation simulationType={simulationType} />
+                </div>
             </Layout>
         )
     }
 }
-
-export default SimulationPage;

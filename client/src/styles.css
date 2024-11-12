@@ -4,6 +4,11 @@
     font-family: 'Montserrat';
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
 }
 
 #root {
@@ -14,203 +19,9 @@
 }
 
 body {
-    height: 100vh;
-    width: 100vw;
     display: flex;
     flex-direction: column;
-}
-
-nav {
-    display: flex;
-    width: 100%;
-    height: fit-content;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 70px;
-}
-
-ul {
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0px;
-}
-
-li:not(:last-child) {
-    margin-right: 25px;
-}
-
-li {
-    list-style: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 20px;
-    border-bottom: 2px solid white;
-    transition: all 0.2s ease-in-out;
-}
-
-li:hover {
-    border-bottom-color: black;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-.options {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-    width: 60%;
-    max-width: 1000px;
-}
-
-.options a {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: stretch;
-    align-items: stretch;
-}
-
-.options a:last-child {
-    grid-column: 2;
-}
-
-.option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    border-radius: 20px;
-    border: 2px solid black;
-    width: 100%;
-    height: 200px;
-    transition: all 0.2s ease-in-out;
-    text-align: center;
-}
-
-.option:hover {
-    transform: scale(1.1);
-}
-
-.option .title {
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 18px;
-}
-
-.canvas-holder {
-    width: 950px;
-    height: 625px;
-    margin-right: 70px;
-    display: flex;
-    align-items: center;
-}
-
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    height: 100%;
-    width: 100%;
-}
-
-.right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.slider-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: start;
-}
-
-.slider-container:not(:last-child) {
-    margin-bottom: 30px;
-}
-
-.slider-container span {
-    font-weight: 600;
-    font-size: 20px;
-}
-
-.slider-function {
-    display: flex;
-    align-items: center;
-}
-
-.slider {
-    margin-right: 20px;
-}
-
-.hdtw-container {
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
-    align-content: start;
-    width: 100%;
-    flex-direction: column;
-}
-
-.hdtw-btn {
-    border: none;
-    background-color: lightcoral;
-    color: white;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.hdtw-btn:active {
-    border: none;
-}
-
-.hdtw-btn:after {
-    content: '\1F7A2';
-    font-size: 13px;
-    color: white;
-    float: right;
-    margin-left: 5px;
-    stroke: white;
-    fill: white;
-    border-color: white;
-
-}
-  
-.hdtw-btn.active:after {
-    content: "\2012";
-}
-
-.content {
-    padding: 0 10px;
     background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    display: flex;
-    align-items: center;
-}
-
-.content span {
-    display: block;
-    margin-block-start: 2em;
-    margin-block-end: 2em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
 }
 
 button {
@@ -224,48 +35,6 @@ button {
     transition: all 0.2 ease-in-out;
 }
 
-.option:not(:last-child) {
-    margin-right: 10px;
-}
-
-.option:hover {
-    background-color: lightgrey;
-}
-
 button:active {
     border: 2px solid black;
-}
-
-footer {
-    display: flex;
-    width: 100%;
-    height: fit-content;
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    flex-direction: column;
-    padding: 0px 0px 20px 0px;
-}
-
-.links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.version {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: 15px;
-    color: lightgrey;
-    font-weight: 600;
-    padding: 10px;
 }

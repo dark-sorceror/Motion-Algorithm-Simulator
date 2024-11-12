@@ -1,11 +1,197 @@
 import React from "react";
-
 import Layout from "../../components/Layout";
 import _Link from "../../components/Link";
 
-class HomePage extends React.Component {
+import './animation/styles.css';
+import './styles.scss'
+
+export class HomePage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            demoStep: 0
+        };
+    }
+
+    componentDidMount() {
+        this.startDemo();
+    }
+
+    startDemo() {
+        this.runPID();
+    }
+
+    runPID() {
+        const robot = document.getElementById('robot');
+        if (!robot) return;
+
+        let speed = 0;
+        let robotPosition = { x: 150, y: 25 };
+
+        const target = { x: 700, y: 25 };
+        const maxSpeed = 4;
+        const minSpeed = 0.5;
+        const targetRadius = 10;
+
+        const pidControl = () => {
+            if (!robot) return;
+
+            const dx = target.x - robotPosition.x;
+            const dy = target.y - robotPosition.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < targetRadius) speed = 0;
+            else speed = Math.max(minSpeed, Math.min(maxSpeed, maxSpeed * (distance / 450)));
+
+            robotPosition.x += (dx / distance) * speed;
+            robotPosition.y += (dy / distance) * speed;
+
+            robot.style.left = `${robotPosition.x - 15}px`;
+            robot.style.top = `${robotPosition.y - 15}px`;
+
+            if (distance > targetRadius) requestAnimationFrame(pidControl);
+            else {
+                this.moveBackward(robotPosition, () => {
+                    setTimeout(() => {
+                        this.runPurePursuit();
+                    }, 100);
+                });
+            }
+        };
+
+        pidControl();
+    }
+
+    moveBackward(startPosition, callback) {
+        const robot = document.getElementById('robot');
+        if (!robot) return;
+
+        let robotPosition = { ...startPosition };
+        let speed = 0;
+
+        const target = { x: 150, y: 25 };
+        const maxSpeed = 4;
+        const minSpeed = 0.5;
+        const targetRadius = 10;
+
+        const pidControlBackward = () => {
+            if (!robot) return;
+
+            const dx = target.x - robotPosition.x;
+            const dy = target.y - robotPosition.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < targetRadius) speed = 0;
+            else speed = Math.max(minSpeed, Math.min(maxSpeed, maxSpeed * (distance / 450)));
+
+            robotPosition.x += (dx / distance) * speed;
+            robotPosition.y += (dy / distance) * speed;
+
+            robot.style.left = `${robotPosition.x - 15}px`;
+            robot.style.top = `${robotPosition.y - 15}px`;
+
+            if (distance > targetRadius) requestAnimationFrame(pidControlBackward);
+            else callback();
+        };
+
+        pidControlBackward();
+    }
+
+    runPurePursuit() {
+        const robot = document.getElementById('robot');
+        if (!robot) return;
+
+        let robotPosition = { x: 150, y: 25 };
+        let startAngle = 0;
+
+        const speed = 2;
+        const waveAmplitude = 50;
+        const waveFrequency = 0.02;
+        const totalPathLength = 600;
+
+        const calculateAngle = (x) => {
+            const slope = waveAmplitude * waveFrequency * Math.cos(waveFrequency * x);
+
+            return Math.atan(slope);
+        };
+
+        const rotateRobot = (targetAngle, duration, callback) => {
+            const startAngle = parseFloat(robot.style.transform.replace('rotate(', '').replace('rad)', '')) || 0;
+            const angleDiff = targetAngle - startAngle;
+            const totalFrames = Math.ceil(duration / 16);
+
+            let frame = 0;
+
+            const rotateFrame = () => {
+                frame++;
+                const angle = startAngle + angleDiff * (frame / totalFrames);
+                robot.style.transform = `rotate(${angle}rad)`;
+
+                if (frame < totalFrames) requestAnimationFrame(rotateFrame);
+                else if (callback) callback();
+            };
+
+            requestAnimationFrame(rotateFrame);
+        };
+
+        startAngle = calculateAngle(robotPosition.x);
+
+        rotateRobot(startAngle, 1000, () => {
+            moveRobotForward();
+        });
+
+        const moveRobotForward = () => {
+            const forwardInterval = setInterval(() => {
+                if (robotPosition.x < totalPathLength) {
+                    robotPosition.x += speed;
+                    robotPosition.y = 25 + waveAmplitude * Math.sin(waveFrequency * robotPosition.x);
+
+                    const angle = calculateAngle(robotPosition.x);
+
+                    robot.style.left = `${robotPosition.x - 15}px`;
+                    robot.style.top = `${robotPosition.y - 15}px`;
+                    robot.style.transform = `rotate(${angle}rad)`;
+                } else {
+                    clearInterval(forwardInterval);
+
+                    rotateRobot(0, 1000, () => {
+                        setTimeout(() => {
+                            const backwardStartAngle = calculateAngle(robotPosition.x);
+
+                            rotateRobot(backwardStartAngle, 1000, () => {
+                                moveRobotBackward();
+                            });
+                        }, 1000);
+                    });
+                }
+            }, 16);
+        };
+
+        const moveRobotBackward = () => {
+            let robotPositionBackward = { x: totalPathLength, y: 25 };
+
+            const backwardInterval = setInterval(() => {
+                if (robotPositionBackward.x > 150) {
+                    robotPositionBackward.x -= speed;
+                    robotPositionBackward.y = 25 + waveAmplitude * Math.sin(waveFrequency * robotPositionBackward.x);
+
+                    const angle = calculateAngle(robotPositionBackward.x);
+
+                    robot.style.left = `${robotPositionBackward.x - 15}px`;
+                    robot.style.top = `${robotPositionBackward.y - 15}px`;
+                    robot.style.transform = `rotate(${angle}rad)`;
+                } else {
+                    clearInterval(backwardInterval);
+
+                    rotateRobot(0, 1000, () => {
+                        setTimeout(() => {
+                            this.runPID();
+                        }, 1000);
+                    });
+                }
+            }, 16);
+        };
     }
 
     render() {
@@ -14,59 +200,16 @@ class HomePage extends React.Component {
                 title="Motion Algorithm Simulator"
                 description="Visualize the various algorithms for generating, controlling and tracking motion paths through simulations"
             >
-                <div className="options">
-                    <_Link to="/pid/">
-                        <button className="pid option">
-                            <span className="title">PID</span>
-                            <span className="desc">Controlling motion through adjusting power to achieve smooth and stable motion</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/pure-pursuit/">
-                        <button className="pure-pursuit option">
-                            <span className="title">Pure Pursuit</span>
-                            <span className="desc">Path following motion that calculates the necessary steering or heading adjusments to reach a waypoint</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/waypoint-generation/">
-                        <button className="waypoint-generation option">
-                            <span className="title">Waypoint Generation</span>
-                            <span className="desc">Production of a sequence of positions (aka waypoints) for the system to follow</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/odometry/">
-                        <button className="odometry option">
-                            <span className="title">Odometry</span>
-                            <span className="desc">Track current position and robots path to provide feedback to suport accurate motion control</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/kalman-filter/">
-                        <button className="kalman-filter option">
-                            <span className="title">Kalman Filter</span>
-                            <span className="desc">Estimatation of motion for controlling real-time motion by filter out sensor noise</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/A-star/">
-                        <button className="a-star option">
-                            <span className="title">A* Algorithm</span>
-                            <span className="desc">A pathfinding algorithm that searches for the most efficient and shortest path between two points in a network</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/mtrp/">
-                        <button className="mtrp option">
-                            <span className="title">Minimum Time Receding Horizon Planner (MTRP)</span>
-                            <span className="desc">Optimizing motion through dynamically adjusting the motion trajectory over a receding horizon, minimizing the time taken to reach a destination</span>
-                        </button>
-                    </_Link>
-                    <_Link to="/rrt/">
-                        <button className="rrt option">
-                            <span className="title">Rapidly Exploring Random Tree (RRT)</span>
-                            <span className="desc">Generating feasbile paths around obstacles from start to finish ensuring smooth motion</span>
-                        </button>
-                    </_Link>
+                <div className="home-wrapper">
+                    <div className="left">
+                        <h1>Motion Algorithm Simulator</h1>
+                        <span>Simulate odometry, pure pursuit, and other motion algorithms with <br /> interactive visualizations</span>
+                    </div>
+                    <div className="right">
+                        <div id="robot" className="robot"></div>
+                    </div>
                 </div>
             </Layout>
         )
     }
 }
-
-export default HomePage;

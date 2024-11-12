@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import { config } from '../../config';
 
-//import './styles.scss';
+import NavBar from "../NavBar";
+
+import './styles.scss';
 
 export const RESET_URL = 'reset';
 
@@ -39,9 +40,7 @@ export default ({ children, title, description }) => {
 
             <div className="container">{ children }</div>
 
-            <Footer />
-
-            <span className="version">a</span>
+            <span className="version">v{ config.VERSION }</span>
         </>
     )
 }
