@@ -1,20 +1,26 @@
 services:
   frontend:
-    build: ./client
+    build:
+      context: ./client
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://proxy:5000
+      - REACT_APP_API_URL=//
     depends_on:
       - proxy
+    networks:
+      - app-network
     restart: always
 
   proxy:
-    build: ./server/proxy
+    build:
+      context: ./server
+      dockerfile: proxy/Dockerfile
     ports:
       - "5000:5000"
     environment:
-      - FLASK_BACKEND_URL=http://backend:5001
+      - EXPRESS_API_PORT=5000
+      - FLASK_BACKEND_URL=http://backend:5001/api
     depends_on:
       - backend
     networks:
@@ -22,14 +28,27 @@ services:
     restart: always
 
   backend:
-    build: ./server
+    build:
+      context: ./server
     ports:
       - "5001:5001"
     environment:
-      - FLASK_APP=server/wsg.py
-    command: python3 server/wsg.py
+      - FLASK_APP=wsg.py
+	   command: python3 wsg.py
     networks:
       - app-network
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-network
+    depends_on:
+      - frontend
     restart: always
 
 networks:

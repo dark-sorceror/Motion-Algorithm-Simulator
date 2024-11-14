@@ -14,8 +14,6 @@ app = App(config_name)
 def dataExchange():
     data = request.get_json()
     
-    print(data)
-    
     simType = data['type']
 
     if simType == 'pid':
