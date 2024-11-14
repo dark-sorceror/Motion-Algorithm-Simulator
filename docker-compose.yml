@@ -1,33 +1,37 @@
-version: '3.8'
-
 services:
-	frontend:
-		build: ./client
-		ports:
-			- "3000:3000"
-		environment:
-			- REACT_APP_API_URL=http://proxy:5000
-		depends_on:
-			- proxy
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://proxy:5000
+    depends_on:
+      - proxy
+    restart: always
 
-	proxy:
-		build: ./server/proxy
-		ports:
-			- "5000:5000"
-		environment:
-			- FLASK_BACKEND_URL=http://backend:5001
-		depends_on:
-			- backend
-		networks:
-			- app-network
+  proxy:
+    build: ./server/proxy
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_BACKEND_URL=http://backend:5001
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: always
 
-  	backend:
-		build: ./server
-		ports:
-			- "5001:5001"
-		networks:
-			- app-network
+  backend:
+    build: ./server
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_APP=server/wsg.py
+    command: python3 server/wsg.py
+    networks:
+      - app-network
+    restart: always
 
 networks:
-	app-network:
-		driver: bridge
+  app-network:
+    driver: bridge
