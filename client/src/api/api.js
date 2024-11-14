@@ -6,7 +6,7 @@ export const fetchData = async (data) => {
 
         return response.data
     } catch (error) {
-        console.error(`Error in FETCH request from ${process.env.REACT_APP_EXPRESS_BASE_URL}/api`, error.response || error.message);
+        console.error(`Error in FETCH request from ${process.env.REACT_APP_API_URL}/api`, error.response || error.message);
         throw error;
     }
 };
@@ -17,7 +17,7 @@ export const postData = async (data) => {
         
         return response.data;
     } catch (error) {
-        console.error(`Error in POST request to ${process.env.REACT_APP_EXPRESS_BASE_URL}/api`, error.response || error.message);
+        console.error(`Error in POST request to ${process.env.REACT_APP_API_URL}/api`, error.response || error.message);
         throw error;
     }
 };

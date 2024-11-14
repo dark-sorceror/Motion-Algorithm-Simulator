@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 const PORT = process.env.EXPRESS_API_PORT;
-const FLASK_API_URL = process.env.FLASK_API_URL
+const FLASK_API_URL = process.env.FLASK_BACKEND_URL
 
 app.use(express.json());
 app.use(cors());
