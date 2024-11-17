@@ -1,6 +1,6 @@
 import React from "react";
+
 import Layout from "../../components/Layout";
-import _Link from "../../components/Link";
 
 import './animation/styles.css';
 import './styles.scss'

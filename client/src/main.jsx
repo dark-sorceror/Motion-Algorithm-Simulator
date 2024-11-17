@@ -5,6 +5,7 @@ import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 import App from './App';
+import { ErrorBoundary } from './pages/errorBoundary';
 
 Chart.register(
     annotationPlugin
@@ -13,5 +14,9 @@ Chart.register(
 const root = document.getElementById('root');
 
 createRoot(root).render(
-    <App />
+    <ErrorBoundary>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </ErrorBoundary>
 );

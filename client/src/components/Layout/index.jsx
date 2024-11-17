@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import { config } from '../../config';
 
@@ -27,14 +27,16 @@ export default ({ children, title, description }) => {
 
     return (
         <>
-            <Helmet>
-                <title>{ title || "Motion Algorithm Simulator" }</title>
-                <meta name="title" content={ title || "Motion Algorithm Simulator" } />
-                <meta name="description" content={ description || null} />
+            <HelmetProvider>
+                <Helmet>
+                    <title>{ title || "Motion Algorithm Simulator" }</title>
+                    <meta name="title" content={ title || "Motion Algorithm Simulator" } />
+                    <meta name="description" content={ description || null} />
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
-            </Helmet>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+                </Helmet>
+            </HelmetProvider>
 
             <NavBar />
 
