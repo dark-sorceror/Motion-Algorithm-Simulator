@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
-import Chart from 'chart.js/auto';
+import Chart, { elements } from 'chart.js/auto';
 
 import { merge } from "../../../services/merge";
 
@@ -29,7 +29,7 @@ const Canvas = ({ data, options }) => {
                     display: false,
                 },
                 annotation: {}
-            },
+            }
         };
 
         let obj2 = options;

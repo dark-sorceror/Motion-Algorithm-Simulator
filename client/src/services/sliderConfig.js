@@ -38,7 +38,7 @@ export const config = {
             id: 'spacing-slider',
             label: 'Spacing',
             default: 1,
-            min: 0,
+            min: 0.1,
             max: 1,
             step: 0.1
         },

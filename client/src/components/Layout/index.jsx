@@ -18,7 +18,7 @@ export function reportUrlChange(arg) {
     window.parent.postMessage(data, '*');
 }
 
-export default ({ children, title, description }) => {
+export const Layout = ({ children, title, description }) => {
     useEffect(() => {
         window.addEventListener('hashchange', reportUrlChange)
         reportUrlChange()

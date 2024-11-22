@@ -48,8 +48,22 @@ const Simulation = ({ simulationType }) => {
             chartData = {
                 labels: Array.from({ length: 101 }, (_, i) => i),
                 datasets: [
-                    { label: 'Robot Position', data: data.robot_position, pointBackgroundColor: '#9BD0F5', pointBorderColor: '#36A2EB' },
-                    { label: 'Destination', data: Array(100).fill(100), borderDash: [5, 5], borderColor: 'rgba(255, 99, 132, 1)' }
+                    {
+                        label: 'Robot Position',
+                        data: data.robot_position,
+                        pointBackgroundColor: '#9BD0F5',
+                        pointBorderColor: '#36A2EB',
+                        pointBorderWidth: 2,
+                        pointHoverBorderWidth: 2
+                    },
+                    {
+                        label: 'Destination',
+                        data: Array(100).fill(100),
+                        borderDash: [5, 5],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        pointBorderWidth: 2,
+                        pointHoverBorderWidth: 2
+                    }
                 ]
             };
 
@@ -58,31 +72,57 @@ const Simulation = ({ simulationType }) => {
                     y: {
                         suggestedMax: 120
                     }
-                },
-                plugins: {
-                    annotation: {
-                        annotations: {
-                            point1: {
-                                type: 'point',
-                                xValue: data.intersect,
-                                yValue: 100,
-                                backgroundColor: '#FFB1C1',
-                                borderColor: '#FF6384',
-                                borderWidth: 2
-                            }
+                }
+            };
+
+            data.intersect ? options.plugins = {
+                annotation: {
+                    annotations: {
+                        point1: {
+                            type: 'point',
+                            xValue: data.intersect,
+                            yValue: 100,
+                            backgroundColor: '#FFB1C1',
+                            borderColor: '#FF6384',
+                            borderWidth: 2
                         }
                     }
                 }
-            };
+            } : {};
 
         } else if (data.type === 'waypoint-generation') {
             chartData = {
                 labels: data.PIA_list.map((item) => item.x),
                 datasets: [
-                    { label: 'Injected Robot Path', data: data.PIA_list.map((item) => item.y) },
-                    { label: 'Smoothed Robot Path', data: data.PSA_list.map((item) => item.y) }
+                    {
+                        label: 'Injected Robot Path',
+                        data: data.PIA_list.map((item) => item.y),
+                        pointBorderWidth: 2,
+                        pointHoverBorderWidth: 2
+                    },
+                    {
+                        type: 'line',
+                        label: 'Smoothed Robot Path',
+                        data: data.PSA_list.map((item) => item.y),
+                        pointBorderWidth: 2,
+                        pointHoverBorderWidth: 2
+                    }
                 ]
             };
+
+            options = {
+                scales: {
+                    y: {
+                        suggestedMax: 3
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 6,
+                        hoverRadius: 10
+                    }
+                }
+            }
         }
 
         setData({
@@ -95,23 +135,23 @@ const Simulation = ({ simulationType }) => {
         setSliderValues((prevValues) => {
             const updatedValues = { ...prevValues, [sliderID]: newValue };
             sendSimulationData({ ...updatedValues, type: simulationType });
-            
+
             return updatedValues;
         });
     };
 
     return (
         <div className='simulation-area'>
-            <Canvas data={ data.chartData } options={ data.options } />
+            <Canvas data={data.chartData} options={data.options} />
             <div className="right">
-                { config[simulationType]?.map((sliderProperties) => (
+                {config[simulationType]?.map((sliderProperties) => (
                     <SliderValueInput
-                        key={ sliderProperties.id }
-                        sliderProperties={ sliderProperties }
-                        value={ sliderValues[formatName(sliderProperties.id)] }
-                        updateValue={ updateSliderValue }
+                        key={sliderProperties.id}
+                        sliderProperties={sliderProperties}
+                        value={sliderValues[formatName(sliderProperties.id)]}
+                        updateValue={updateSliderValue}
                     />
-                )) }
+                ))}
             </div>
         </div>
     );

@@ -1,9 +1,10 @@
 import React from "react";
 
-import Layout from "../../components/Layout";
+import _Link from "../../components/Link";
+import { Layout } from "../../components/Layout";
 
 import './animation/styles.css';
-import './styles.scss'
+import './styles.scss';
 
 export class HomePage extends React.Component {
     constructor(props) {
@@ -31,8 +32,20 @@ export class HomePage extends React.Component {
 
         const target = { x: 700, y: 25 };
         const maxSpeed = 4;
-        const minSpeed = 0.5;
+        const minSpeed = 0.1;
         const targetRadius = 10;
+
+        const targetMarker = document.getElementById('target-marker');
+        const arrow = document.getElementById('arrow');
+        const arrowC = document.getElementById('arrow-c');
+
+        targetMarker.style.left = `${target.x - 15}px`;
+        targetMarker.style.top = `${target.y - 15}px`;
+
+        setTimeout(() => {
+            targetMarker.style.opacity = '1';
+            arrow.style.opacity = '1';
+        }, 250)
 
         const pidControl = () => {
             if (!robot) return;
@@ -50,13 +63,21 @@ export class HomePage extends React.Component {
             robot.style.left = `${robotPosition.x - 15}px`;
             robot.style.top = `${robotPosition.y - 15}px`;
 
+            arrow.style.height = `${speed * 20}px`;
+
             if (distance > targetRadius) requestAnimationFrame(pidControl);
             else {
-                this.moveBackward(robotPosition, () => {
-                    setTimeout(() => {
-                        this.runPurePursuit();
-                    }, 100);
-                });
+                targetMarker.style.opacity = '0';
+                setTimeout(() => {
+                    arrowC.classList.add('b');
+                    this.moveBackward(robotPosition, () => {
+                        targetMarker.style.opacity = '0';
+                        setTimeout(() => {
+                            arrowC.classList.remove('b');
+                            this.runPurePursuit();
+                        }, 2000);
+                    });
+                }, 2000)
             }
         };
 
@@ -72,8 +93,19 @@ export class HomePage extends React.Component {
 
         const target = { x: 150, y: 25 };
         const maxSpeed = 4;
-        const minSpeed = 0.5;
+        const minSpeed = 0.1;
         const targetRadius = 10;
+
+        const targetMarker = document.getElementById('target-marker');
+        const arrow = document.getElementById('arrow');
+
+        targetMarker.style.left = `${target.x + 7}px`;
+        targetMarker.style.top = `${target.y - 15}px`;
+
+        setTimeout(() => {
+            targetMarker.style.opacity = '1';
+            arrow.style.opacity = '1';
+        }, 250)
 
         const pidControlBackward = () => {
             if (!robot) return;
@@ -91,6 +123,8 @@ export class HomePage extends React.Component {
             robot.style.left = `${robotPosition.x - 15}px`;
             robot.style.top = `${robotPosition.y - 15}px`;
 
+            arrow.style.height = `${speed * 20}px`;
+
             if (distance > targetRadius) requestAnimationFrame(pidControlBackward);
             else callback();
         };
@@ -106,8 +140,8 @@ export class HomePage extends React.Component {
         let startAngle = 0;
 
         const speed = 2;
-        const waveAmplitude = 50;
-        const waveFrequency = 0.02;
+        const waveAmplitude = 70;
+        const waveFrequency = 0.018;
         const totalPathLength = 600;
 
         const calculateAngle = (x) => {
@@ -135,13 +169,34 @@ export class HomePage extends React.Component {
             requestAnimationFrame(rotateFrame);
         };
 
+        const o1 = document.getElementById('o1');
+        const o2 = document.getElementById('o2');
+        const o3 = document.getElementById('o3');
+
         startAngle = calculateAngle(robotPosition.x);
 
+        setTimeout(() => {
+            o1.style.opacity = 1;
+            o2.style.opacity = 1;
+            o3.style.opacity = 1;
+        }, 250)
+
         rotateRobot(startAngle, 1000, () => {
-            moveRobotForward();
+            moveRobotForward(() => {
+                moveRobotBackward(() => {
+                    rotateRobot(0, 1000, () => {
+                        o1.style.opacity = 0;
+                        o2.style.opacity = 0;
+                        o3.style.opacity = 0;
+                        setTimeout(() => {
+                            this.runPID();
+                        }, 1000);
+                    });
+                });
+            });
         });
 
-        const moveRobotForward = () => {
+        const moveRobotForward = (callback) => {
             const forwardInterval = setInterval(() => {
                 if (robotPosition.x < totalPathLength) {
                     robotPosition.x += speed;
@@ -155,20 +210,12 @@ export class HomePage extends React.Component {
                 } else {
                     clearInterval(forwardInterval);
 
-                    rotateRobot(0, 1000, () => {
-                        setTimeout(() => {
-                            const backwardStartAngle = calculateAngle(robotPosition.x);
-
-                            rotateRobot(backwardStartAngle, 1000, () => {
-                                moveRobotBackward();
-                            });
-                        }, 1000);
-                    });
+                    callback();
                 }
             }, 16);
         };
 
-        const moveRobotBackward = () => {
+        const moveRobotBackward = (callback) => {
             let robotPositionBackward = { x: totalPathLength, y: 25 };
 
             const backwardInterval = setInterval(() => {
@@ -184,11 +231,7 @@ export class HomePage extends React.Component {
                 } else {
                     clearInterval(backwardInterval);
 
-                    rotateRobot(0, 1000, () => {
-                        setTimeout(() => {
-                            this.runPID();
-                        }, 1000);
-                    });
+                    callback();
                 }
             }, 16);
         };
@@ -204,12 +247,23 @@ export class HomePage extends React.Component {
                     <div className="left">
                         <h1>Motion Algorithm Simulator</h1>
                         <span>Simulate odometry, pure pursuit, and other motion algorithms with <br /> interactive visualizations</span>
+                        <_Link to='/simulations/'>
+                            <button className="cta">Try it now</button>
+                        </_Link>
                     </div>
                     <div className="right">
-                        <div id="robot" className="robot"></div>
+                        <div id="robot" className="robot">
+                            <div className="arrow-c" id="arrow-c">
+                                <div className="arrow" id="arrow"></div>
+                            </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="target-marker" id="target-marker"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                        <div className="obstacle-marker o1" id="o1"></div>
+                        <div className="obstacle-marker o2" id="o2"></div>
+                        <div className="obstacle-marker o3" id="o3"></div>
                     </div>
                 </div>
             </Layout>
-        )
+        );
     }
 }

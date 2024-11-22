@@ -32,7 +32,7 @@ def dataExchange():
     elif simType == 'waypoint-generation':
         spacing, b = float(data['spacingValue']), float(data['bValue'])
         
-        wpgObj = generateWayPath([(0, 3), (1, 3), (2, 3), (3, 2), (4, 1), (5, 0)], spacing, 1 - b, b, 0.001)
+        wpgObj = generateWayPath([(0, 1.5), (1, 2.5), (2, 1.5), (3, 0.5), (4, 1.5), (5, 2.5)], spacing, 1 - b, b, 0.001)
         
         PIAlist = wpgObj.pointInjectionAlgorithm()
         PSAlist = wpgObj.pathSmoothingAlgorithm()

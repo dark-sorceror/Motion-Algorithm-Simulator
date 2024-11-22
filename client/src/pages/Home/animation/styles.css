@@ -1,12 +1,85 @@
-.right {
+.home-wrapper .right {
     position: relative;
+    margin-top: 30px;
 }
 
 .robot {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-color: grey;
+    background-color: rgba(0, 0, 0, 0.555);
     border-radius: 5px;
     z-index: 600;
+}
+
+.arrow {
+    height: 100%;
+    transition: height 0.2s ease-in-out, opacity 0.5s ease-in-out;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.555);
+    opacity: 0;
+}
+
+.arrow-c {
+    width: 10px;
+    height: 60px;
+    position: relative;
+    top: 100px;
+    left: 80px;
+    rotate: -90deg;
+}
+
+.arrow-c.b {
+    rotate: -270deg;
+    left: 18px;
+}
+
+.speed-text {
+    position: absolute;
+    top: 15px;
+    left: 120px;
+    font-size: 14px;
+    color: black;
+    transition: all 1s ease-in-out;
+}
+
+.target-marker {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    transition: opacity 2.5s ease-in-out;
+    color: rgba(0, 0, 0, 0.39);
+    margin-top: 10px;
+    opacity: 0;
+}
+
+.obstacle-marker {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(240, 236, 30);
+    border-radius: 10px;
+    position: absolute;
+    opacity: 0;
+}
+
+.o1 {
+    top: 80px;
+    left: 265px;
+    transition: opacity 1s ease-in-out;
+    rotate: 30deg;
+}
+
+.o2 {
+    top: 0px;
+    left: 445px;
+    transition: opacity 2s ease-in-out;
+    rotate: 170deg;
+}
+
+.o3 {
+    top: 80px;
+    left: 625px;
+    transition: opacity 3s ease-in-out;
+    rotate: -30deg;
 }

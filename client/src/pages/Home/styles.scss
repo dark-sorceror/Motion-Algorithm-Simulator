@@ -3,20 +3,39 @@
     width: 70%;
 }
 
-.left {
+.home-wrapper .left {
     display: flex;
     flex-direction: column;
     text-align: left;
     align-items: start;
     color: black;
+    margin-bottom: 35px;
 }
 
-.left h1 {
+.home-wrapper .left h1 {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: 50px;
+    font-weight: 900;
 }
 
-.left span {
+.home-wrapper .left span {
+    font-size: 19px;
+}
+
+.cta {
+    margin-top: 16px;
+    font-weight: 600;
     font-size: 20px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: rgb(139, 108, 239);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.cta:hover {
+    background-color: rgb(114, 79, 230);
 }

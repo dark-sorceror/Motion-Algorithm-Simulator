@@ -43,6 +43,8 @@ class generateWayPath:
                 
         newPathPoints.append(tuple(self.pathPoints[-1]))
         
+        self.pathPoints = newPathPoints
+        
         return newPathPoints
 
     # Path Smoothing Algorithm

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "../../components/Layout";
+import { Layout } from "../../components/Layout";
 import _Link from "../../components/Link";
 
 import './styles.scss';

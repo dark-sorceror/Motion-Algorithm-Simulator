@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PageNotFound } from './pages/PageNotFound';
@@ -8,7 +7,7 @@ import { AboutPage } from './pages/About';
 import { HomePage } from './pages/Home';
 import { ErrorBoundary } from './pages/errorBoundary';
 
-import './styles/styles.css';
+import './styles/app.css';
 
 const MainRoutes = [
     {
