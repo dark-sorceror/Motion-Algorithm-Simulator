@@ -11,12 +11,11 @@ const app = express();
 const PORT = process.env.EXPRESS_API_PORT ?? process.exit(1);
 const FLASK_API_URL = process.env.FLASK_API_URL ?? process.exit(1);
 const FRONTEND_URL = process.env.FRONTEND_URL ?? process.exit(1);
-const FRONTEND_BASE_URL = process.env.FRONTEND_BASE_URL ?? process.exit(1);
 
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors({
-    origin: FRONTEND_BASE_URL,
+    origin: FRONTEND_URL,
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));

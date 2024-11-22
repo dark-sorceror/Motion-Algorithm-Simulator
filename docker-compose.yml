@@ -21,6 +21,7 @@ services:
     environment:
       - EXPRESS_API_PORT=5000
       - FLASK_BACKEND_URL=http://backend:5001/api
+      - FRONTEND_URL=http://localhost:3000
     depends_on:
       - backend
     networks:
