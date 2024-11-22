@@ -1,5 +1,4 @@
 # Motion Algorithm Simulator
----
 
 ## Overview 
 This repository made by VEX Robotics team 3388N Nova showcases a variety of autonomous motion algorithms used for path generation, control, tracking, and optimization including algorithms like RRT (Rapidly-exploring Random Tree) and Pure Pursuit. These algorithms are simulated to demonstrate their application in autonomous navigation, covering key aspects of motion planning, trajectory following, and feedback control.
@@ -19,4 +18,3 @@ Simulations of Key Algorithms:
 
 ## Todo
 - Complete Pure Pursuit, Kalman Filters, MTRP
-

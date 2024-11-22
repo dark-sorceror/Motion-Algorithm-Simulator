@@ -34,7 +34,7 @@ services:
       - "5001:5001"
     environment:
       - FLASK_APP=wsg.py
-	   command: python3 wsg.py
+    command: python3 wsg.py
     networks:
       - app-network
     restart: always

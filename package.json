@@ -1,7 +1,7 @@
 {
     "name": "motion-algorithm-simulator",
     "description": "Visualize the various algorithms for generating, controlling and tracking motion paths such as RRT and Pure Pursuit through simulations. Implemented in VEX Robotics",
-    "version": "2.1.3",
+    "version": "2.1.5",
     "main": "",
     "repository": {
         "type": "git",
