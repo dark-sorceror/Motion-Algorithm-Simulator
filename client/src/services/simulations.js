@@ -1,5 +1,5 @@
 export const simulations = {
-    "PID": {
+    "Proportional Integral Derivative (PID)": {
         address: "pid",
         description: 'Controlling motion through adjusting power to achieve smooth and stable motion',
         available: true

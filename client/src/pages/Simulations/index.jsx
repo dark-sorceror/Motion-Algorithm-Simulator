@@ -27,7 +27,7 @@ export class SimulationsPage extends React.Component {
                             return (
                                 <_Link
                                     to={simulations[simulation].available
-                                        ? `/${simulation.toLowerCase().replaceAll(" ", "-")}/`
+                                        ? `/${simulations[simulation].address}/`
                                         : null}
                                     key={simulation}>
                                     <button className={`
@@ -35,7 +35,7 @@ export class SimulationsPage extends React.Component {
                                         ${simulations[simulation].available
                                                 ? ''
                                                 : 'unavailable'}`}>
-                                        <span className="title">{`${simulation} `}</span>
+                                        <span className="title">{`${simulation} ${!simulations[simulation].available ? '(Unavailable)' : ''}`}</span>
                                         <span className="desc">{`${simulations[simulation].description} `}</span>
                                     </button>
                                 </_Link>

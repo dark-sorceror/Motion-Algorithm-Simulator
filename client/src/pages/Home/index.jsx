@@ -11,16 +11,56 @@ export class HomePage extends React.Component {
         super(props);
 
         this.state = {
-            demoStep: 0
+            demoStep: 0,
+            isAnimating: false
         };
     }
 
     componentDidMount() {
-        this.startDemo();
+        this.checkWidthAndStartAnimation();
+        window.addEventListener('resize', this.checkWidthAndStartAnimation);
     }
 
-    startDemo() {
-        this.runPID();
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.checkWidthAndStartAnimation);
+    }
+
+    checkWidthAndStartAnimation = () => {
+        const targetMarker = document.getElementById('target-marker');
+
+        if (window.innerWidth >= 1440) {
+            if (!this.state.isAnimating) {
+                this.startAnimation();
+            }
+        } else {
+            if (this.state.isAnimating) {
+                this.stopAnimation();
+            }
+
+            targetMarker.classList.remove('a');
+        }
+    };
+
+    startAnimation() {
+        const robot = document.getElementById('robot');
+
+        if (robot) {
+            this.runPID();
+        }
+    }
+
+    stopAnimation() {
+        this.setState({ isAnimating: false });
+
+        const robot = document.getElementById('robot');
+
+        if (robot) {
+            robot.style.animation = 'none';
+            robot.style.transition = 'none';
+        }
+
+        cancelAnimationFrame(this.animationFrameId);
+        clearInterval(this.animationIntervalId);
     }
 
     runPID() {
@@ -28,9 +68,9 @@ export class HomePage extends React.Component {
         if (!robot) return;
 
         let speed = 0;
-        let robotPosition = { x: 150, y: 25 };
+        let robotPosition = { x: 150, y: -70 };
 
-        const target = { x: 700, y: 25 };
+        const target = { x: 700, y: -70 };
         const maxSpeed = 4;
         const minSpeed = 0.1;
         const targetRadius = 10;
@@ -43,12 +83,15 @@ export class HomePage extends React.Component {
         targetMarker.style.top = `${target.y - 15}px`;
 
         setTimeout(() => {
-            targetMarker.style.opacity = '1';
-            arrow.style.opacity = '1';
+            targetMarker.classList.add('a');
+            arrow.classList.add('a');
         }, 250)
 
         const pidControl = () => {
-            if (!robot) return;
+            if (!robot || window.innerWidth < 1440) {
+                this.stopAnimation();
+                return;
+            }
 
             const dx = target.x - robotPosition.x;
             const dy = target.y - robotPosition.y;
@@ -67,11 +110,11 @@ export class HomePage extends React.Component {
 
             if (distance > targetRadius) requestAnimationFrame(pidControl);
             else {
-                targetMarker.style.opacity = '0';
+                targetMarker.classList.remove('a');
                 setTimeout(() => {
                     arrowC.classList.add('b');
                     this.moveBackward(robotPosition, () => {
-                        targetMarker.style.opacity = '0';
+                        targetMarker.classList.remove('a');
                         setTimeout(() => {
                             arrowC.classList.remove('b');
                             this.runPurePursuit();
@@ -91,7 +134,7 @@ export class HomePage extends React.Component {
         let robotPosition = { ...startPosition };
         let speed = 0;
 
-        const target = { x: 150, y: 25 };
+        const target = { x: 150, y: -70 };
         const maxSpeed = 4;
         const minSpeed = 0.1;
         const targetRadius = 10;
@@ -103,12 +146,15 @@ export class HomePage extends React.Component {
         targetMarker.style.top = `${target.y - 15}px`;
 
         setTimeout(() => {
-            targetMarker.style.opacity = '1';
-            arrow.style.opacity = '1';
+            targetMarker.classList.add('a');
+            arrow.classList.add('a');
         }, 250)
 
         const pidControlBackward = () => {
-            if (!robot) return;
+            if (!robot || window.innerWidth < 1440) {
+                this.stopAnimation();
+                return;
+            }
 
             const dx = target.x - robotPosition.x;
             const dy = target.y - robotPosition.y;
@@ -136,7 +182,7 @@ export class HomePage extends React.Component {
         const robot = document.getElementById('robot');
         if (!robot) return;
 
-        let robotPosition = { x: 150, y: 25 };
+        let robotPosition = { x: 150, y: -70 };
         let startAngle = 0;
 
         const speed = 2;
@@ -158,6 +204,11 @@ export class HomePage extends React.Component {
             let frame = 0;
 
             const rotateFrame = () => {
+                if (!robot || window.innerWidth < 1440) {
+                    this.stopAnimation();
+                    return;
+                }
+
                 frame++;
                 const angle = startAngle + angleDiff * (frame / totalFrames);
                 robot.style.transform = `rotate(${angle}rad)`;
@@ -176,18 +227,19 @@ export class HomePage extends React.Component {
         startAngle = calculateAngle(robotPosition.x);
 
         setTimeout(() => {
-            o1.style.opacity = 1;
-            o2.style.opacity = 1;
-            o3.style.opacity = 1;
+            o1.classList.add('a');
+            o2.classList.add('a');
+            o3.classList.add('a');
         }, 250)
 
         rotateRobot(startAngle, 1000, () => {
             moveRobotForward(() => {
                 moveRobotBackward(() => {
                     rotateRobot(0, 1000, () => {
-                        o1.style.opacity = 0;
-                        o2.style.opacity = 0;
-                        o3.style.opacity = 0;
+                        o1.classList.remove('a');
+                        o2.classList.remove('a');
+                        o3.classList.remove('a');
+
                         setTimeout(() => {
                             this.runPID();
                         }, 1000);
@@ -198,9 +250,14 @@ export class HomePage extends React.Component {
 
         const moveRobotForward = (callback) => {
             const forwardInterval = setInterval(() => {
+                if (!robot || window.innerWidth < 1440) {
+                    this.stopAnimation();
+                    return;
+                }
+
                 if (robotPosition.x < totalPathLength) {
                     robotPosition.x += speed;
-                    robotPosition.y = 25 + waveAmplitude * Math.sin(waveFrequency * robotPosition.x);
+                    robotPosition.y = -70 + waveAmplitude * Math.sin(waveFrequency * robotPosition.x);
 
                     const angle = calculateAngle(robotPosition.x);
 
@@ -216,12 +273,17 @@ export class HomePage extends React.Component {
         };
 
         const moveRobotBackward = (callback) => {
-            let robotPositionBackward = { x: totalPathLength, y: 25 };
+            let robotPositionBackward = { x: totalPathLength, y: -70 };
 
             const backwardInterval = setInterval(() => {
+                if (!robot || window.innerWidth < 1440) {
+                    this.stopAnimation();
+                    return;
+                }
+
                 if (robotPositionBackward.x > 150) {
                     robotPositionBackward.x -= speed;
-                    robotPositionBackward.y = 25 + waveAmplitude * Math.sin(waveFrequency * robotPositionBackward.x);
+                    robotPositionBackward.y = -70 + waveAmplitude * Math.sin(waveFrequency * robotPositionBackward.x);
 
                     const angle = calculateAngle(robotPositionBackward.x);
 

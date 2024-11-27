@@ -40,9 +40,10 @@ export const Layout = ({ children, title, description }) => {
 
             <NavBar />
 
-            <div className="container">{ children }</div>
-
-            <span className="version">v{ config.VERSION }</span>
+            <div className="container">
+                { children }
+                <span className="version">v{ config.VERSION }</span>
+            </div>
         </>
     )
 }

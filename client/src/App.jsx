@@ -5,7 +5,7 @@ import { SimulationPage } from './pages/Simulation';
 import { SimulationsPage } from './pages/Simulations'
 import { AboutPage } from './pages/About';
 import { HomePage } from './pages/Home';
-import { ErrorBoundary } from './pages/errorBoundary';
+import { ErrorBoundary } from './pages/ErrorBoundary';
 
 import './styles/app.css';
 
@@ -57,7 +57,7 @@ const MainRoutes = [
                 <PageNotFound />
             </ErrorBoundary>
         ),
-    },
+    }
 ];
 
 const router = createBrowserRouter(MainRoutes, {

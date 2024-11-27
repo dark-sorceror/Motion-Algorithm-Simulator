@@ -5,7 +5,7 @@ import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 import App from './App';
-import { ErrorBoundary } from './pages/errorBoundary';
+import { ErrorBoundary } from './pages/ErrorBoundary';
 
 Chart.register(
     annotationPlugin

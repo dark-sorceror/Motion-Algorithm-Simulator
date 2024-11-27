@@ -1,9 +1,13 @@
 import React from "react";
-import { Layout } from "../components/Layout";
+
+import { Layout } from "../../components/Layout";
+
+import './styles.css';
 
 export class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = { hasError: false };
     }
 
@@ -26,9 +30,9 @@ export class ErrorBoundary extends React.Component {
                     title="Motion Algorithm Simulator"
                     description="Visualize the various algorithms for generating, controlling, and tracking motion paths through simulations"
                 >
-                    <div style={{ textAlign: "center", padding: "2rem" }}>
+                    <div className="error">
                         <h1>Something went wrong. Please try again later.</h1>
-                        <button onClick={this.resetError} style={{ marginTop: "1rem" }}>
+                        <button onClick={this.resetError }>
                             Retry
                         </button>
                     </div>

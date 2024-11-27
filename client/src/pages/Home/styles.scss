@@ -1,26 +1,11 @@
+body, html {
+    height: 100%;
+}
+
 .home-wrapper {
     display: flex;
     width: 70%;
-}
-
-.home-wrapper .left {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    align-items: start;
-    color: black;
-    margin-bottom: 35px;
-}
-
-.home-wrapper .left h1 {
-    margin: 0;
-    margin-bottom: 15px;
-    font-size: 50px;
-    font-weight: 900;
-}
-
-.home-wrapper .left span {
-    font-size: 19px;
+    align-items: center;
 }
 
 .cta {
@@ -38,4 +23,53 @@
 
 .cta:hover {
     background-color: rgb(114, 79, 230);
+}
+
+.home-wrapper .left h1 {
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.home-wrapper .left span {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+@media (min-width: 1800px) {
+    .home-wrapper .left {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        align-items: start;
+        color: black;
+        margin-bottom: 35px;
+    }
+}
+
+@media (max-width: 1800px) {
+    .home-wrapper .right {
+        width: 0;
+        height: 0;
+    }
+
+    .home-wrapper {
+        justify-content: center;
+        color: black;
+    }
+
+    .home-wrapper .left {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .home-wrapper h1 {
+        margin: 0;
+        margin-bottom: 10px;
+    }
 }

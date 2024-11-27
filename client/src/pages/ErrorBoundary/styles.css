@@ -1,0 +1,18 @@
+.error {
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.error button {
+    margin-top: 20px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 18px;
+    background-color: rgb(197, 197, 197);
+    border: none;
+    cursor: pointer;
+}
