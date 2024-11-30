@@ -9,36 +9,34 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.EXPRESS_API_PORT ?? process.exit(1);
-const FLASK_API_URL = process.env.FLASK_API_URL ?? process.exit(1);
+const PROXY_API_URL = process.env.PROXY_API_URL ?? process.exit(1);
+const BACKEND_API_URL = process.env.BACKEND_API_URL ?? process.exit(1);
 const FRONTEND_URL = process.env.FRONTEND_URL ?? process.exit(1);
 
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({
-    origin: FRONTEND_URL,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 app.post('/api', async (req, res) => {
     const data = req.body;
 
     try {
-        const response = await axios.post(FLASK_API_URL, data);
+        const response = await axios.post(BACKEND_API_URL, data);
 
         res.status(200).json(response.data);
     } catch (error) {
-        console.error('Error communicating with Flask API:', error.response ? error.response.data : error.message);
+        console.error('Error communicating with backend: ', error.response ? error.response.data : error.message);
 
         res.status(500).json({
-            error: 'Error processing data',
+            error: 'Error processing data in backend',
             details: error.response ? error.response.data : error.message
         });
     }
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Proxying requests to Flask API at ${FLASK_API_URL}`);
-    console.log(`Frontend can access API at ${FRONTEND_URL}`);
+    console.log('Server is running');
+    console.log(`Listening to requests on ${PROXY_API_URL}`);
+    console.log(`Expecting requests from ${FRONTEND_URL}`);
+    console.log(`Forwarding requests to backend: ${BACKEND_API_URL}`);
 });
