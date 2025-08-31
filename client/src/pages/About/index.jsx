@@ -28,7 +28,7 @@ export class AboutPage extends React.Component {
                         <br />
                         <span>Made By VEX Robotics Team 3388N Nova</span>
                         <br />
-                        <img src={logo} />
+                        <img src={ logo } />
                         <br />
                         <div className="links">
                             <_Link to="https://github.com/dark-sorceror/Motion-Algorithm-Simulator/">
